@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { JWT } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -88,6 +89,8 @@ export const authOptions: NextAuthOptions = {
     }
 };
 
-const handler = NextAuth(authOptions);
+const handler = async (req: Request, ctx: any) => {
+  return NextAuth(authOptions)(req, ctx);
+};
 
 export { handler as GET, handler as POST };
