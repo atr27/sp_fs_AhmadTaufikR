@@ -88,17 +88,6 @@ export const authOptions: NextAuthOptions = {
     }
 };
 
-const handler = async (req: Request, ctx: any) => {
-  try {
-    const response = await (NextAuth(authOptions) as any)(req, ctx);
-    return response;
-  } catch (error) {
-    console.error('Auth error:', error);
-    return NextResponse.json(
-      { error: 'Authentication failed', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
-    );
-  }
-};
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
